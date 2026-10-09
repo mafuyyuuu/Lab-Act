@@ -1,0 +1,12 @@
+services:
+  course-service:
+    build: course-service
+    ports:
+      - "3002:3002"
+
+  student-service:
+    build: ./student-service
+    ports:
+      - "3001:3001"
+    depends_on:
+      - course-service
