@@ -1,6 +1,6 @@
 services:
   course-service:
-    build: course-service
+    build: ./course-service
     ports:
       - "3002:3002"
 
@@ -10,3 +10,23 @@ services:
       - "3001:3001"
     depends_on:
       - course-service
+
+  enrollment-service:
+    build: ./enrollment-service
+    ports:
+      - "3003:3003"
+
+  payment-service:
+    build: ./payment-service
+    ports:
+      - "3004:3004"
+
+  library-service:
+    build: ./library-service
+    ports:
+      - "3005:3005"
+
+  faculty-service:
+    build: ./faculty-service
+    ports:
+      - "3006:3006"
