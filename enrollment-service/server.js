@@ -96,6 +96,23 @@ app.delete("/enrollments/:id", (req, res) => {
     });
 });
 
+
+// ROUTE TO GET STUDENT INFORMATION THROUGH ENROLLMENT SERVICE
+app.get('/student-enrollment/:id', async (req, res) => {
+    try {
+        const enrollment = enrollments.find(e => e.id == req.params.id);
+        if (!enrollment) return res.status(404).json({ error: 'Enrollment not found' });
+
+        const r = await fetch(`${process.env.STUDENT_SERVICE_URL}/students/${enrollment.student_id}`);
+        if (!r.ok) return res.status(r.status).json({ error: 'Student not found' });
+        const student = await r.json();
+
+        res.json({ enrollment, student });
+    } catch (err) {
+        res.status(502).json({ error: 'Cannot reach student service', detail: err.message });
+    }
+});
+
 // START SERVER
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`Enrollment Service running on port ${PORT}`);
