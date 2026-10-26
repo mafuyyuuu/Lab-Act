@@ -1,11 +1,13 @@
 services:
   course-service:
     build: ./course-service
+    image: course-service:1.0
     ports:
       - "3002:3002"
 
   student-service:
     build: ./student-service
+    image: student-service:1.0
     ports:
       - "3001:3001"
     depends_on:
@@ -13,20 +15,40 @@ services:
 
   enrollment-service:
     build: ./enrollment-service
+    image: enrollment-service:1.0
     ports:
       - "3003:3003"
+    environment:
+      STUDENT_SERVICE_URL: http://student-service:3001
+    depends_on:
+      - student-service
 
   payment-service:
     build: ./payment-service
+    image: payment-service:1.0
     ports:
       - "3004:3004"
 
   library-service:
     build: ./library-service
+    image: library-service:1.0
     ports:
       - "3005:3005"
 
   faculty-service:
     build: ./faculty-service
+    image: faculty-service:1.0
     ports:
       - "3006:3006"
+
+  notification-service:
+    build: ./notification-service
+    image: notification-service:1.0
+    ports:
+      - "3007:3007"
+
+  auth-service:
+    build: ./auth-service
+    image: auth-service:1.0
+    ports:
+      - "3008:3008"
