@@ -1,0 +1,9 @@
+{
+  "name": "university-digital-services-local",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "validate:deployed": "node scripts/validate-deployed.js"
+  }
+}
